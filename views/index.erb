@@ -19,7 +19,12 @@
     </ul>
   </div>
   <div id="user-bar">
-    <a href="/login">login</a> | <a href="/register">register</a> | <a href="">preference</a> | <a href="">logout</a>
+    <% if @username %>
+      <a href="/users/<%= @username %>"><%= @username %></a> |
+    <% else %>
+      <a href="/login">login</a> | <a href="/register">register</a> |
+    <% end %>
+    <a href="">preference</a> | <a href="/logout">logout</a>
   </div>
 </div>
 
