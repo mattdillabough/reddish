@@ -1,6 +1,7 @@
 body {
   background-color: #FFFFFF;
   margin: 0px;
+  min-width: 1000px;
 }
 
 #header {
@@ -40,7 +41,7 @@ body {
   border-left: 1px solid #000000;
 }
 
-#user_bar {
+#user-bar {
   float: right;
   float: bottom;
   font-size: 14px;
@@ -60,18 +61,11 @@ body {
   padding-left: 15px;
 }
 
-#left_panel {
-  float: left;
-  height: 3500px;
-  border-right: 1px solid #BDBDBD;
-  box-shadow: -2px 0 2px #E6E6E6;  
-}
-
-.left_link_div {
+.left-link-div {
   clear: both;
 }
 
-.left_links {
+.left-links {
   clear:both;
   float: right;
   background-color: #FFFFFF;
@@ -102,7 +96,7 @@ body {
   font-family: arial, verdana, helvetica, sans-serif;
 }
 
-#left_panel_multireddulls {
+#left-panel-multireddulls {
   clear:both;
   background-color: #F3E2A9;
   border-top: 1px solid #DBA901;
@@ -110,7 +104,7 @@ body {
   height: 300px;
 }
 
-.left_panel_multireddulls_text {
+.left-panel-multireddulls-text {
   padding-left: 6px;
   padding-right: 6px;
   padding-top: 6px;
@@ -121,14 +115,36 @@ body {
   clear: both;
 }
 
-#center_panel {
-  float: right;
-  height: 3500px;
+#panels {
+  position: relative;
+}
+
+#left-panel {
+  box-shadow: -2px 0 2px #E6E6E6;  
+  border-right: 1px solid #BDBDBD;
+  box-sizing: border-box;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 200px;
+}
+
+#center-panel {
+  margin-left: 210px;
+  margin-right: 330px;
+  min-height: 1000px;
   border-left: 1px solid #BDBDBD;
   box-shadow: -2px 0 2px #E6E6E6;
 }
 
-#submit_post {
+#right-panel {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 320px;
+}
+
+#submit-post {
   width: 300px;
   height: 84px;
   font-family: arial, verdana, helvetica, sans-serif;
@@ -146,7 +162,7 @@ body {
   font-family: arial, verdana, helvetica, sans-serif;
 }
 
-.post_button {
+.post-button {
   width: 300px;
   height: 30px;
   margin-left: 6px;
@@ -155,7 +171,7 @@ body {
   margin-bottom: 6px;
 }
 
-.featured_ad {
+.featured-ad {
   width: 300px;
   height: 250px;
   margin-left: 6px;
@@ -166,11 +182,11 @@ body {
   clear: both;
 }
 
-.discuss_ad {
+.discuss-ad {
   text-align: center;
 }
 
-#discuss_ad {
+#discuss-ad {
   text-decoration: none;
   font-size: 16px;
   font-family: arial, verdana, helvetica, sans-serif;

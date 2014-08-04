@@ -4,7 +4,7 @@
 
 <div id="header">
   <div id="title">
-    Reddul
+    Reddull
   </div>
   <div id="topics">
     <ul>
@@ -18,49 +18,53 @@
       <li><a href="">promoted</a></li>
     </ul>
   </div>
-  <div id="user_bar">
-    User (#) | mail | <a href="">preference</a> | <a href="">logout</a>
+  <div id="user-bar">
+    <a href="/login">login</a> | <a href="/register">register</a> | <a href="">preference</a> | <a href="">logout</a>
   </div>
 </div>
 
-<div id="left_panel">
-  <div class="left_link_div">
-    <a class="left_links" href="">subscribed</a>
+<div id="panels">
+  <div id="left-panel">
+    <div class="left-link-div">
+      <a class="left-links" href="">subscribed</a>
+    </div>
+    <div class="left-link-div">
+      <a class="left-links" href="">explore</a>
+    </div>
+    <p id="multireddulls">multireddulls</p>
+    <div id="left-panel-multireddulls">
+      <p class="left-panel-multireddulls-text">new! create sets of <br> subreddits to view <br> together.</p>
+      <p class="left-panel-multireddulls-text">for starters, try one <br> of these:</p>
+      <a class="left-links" href="">reddullnews</a>
+      <a class="left-links" href="">reddullpets</a>
+      <a class="left-links" href="">multibeta</a>
+      <p class="left-panel-multireddulls-text">to hide these <br> samples, create a <br> multi of your own:</p>
+    </div>
   </div>
-  <div class="left_link_div">
-    <a class="left_links" href="">explore</a>
+  
+  <div id="center-panel">
+    <div id="featured-post">
+      This is the feaured post. It is very featured. It features its features very well.
+    </div>
   </div>
-  <p id="multireddulls">multireddulls</p>
-  <div id="left_panel_multireddulls">
-    <p class="left_panel_multireddulls_text">new! create sets of <br> subreddits to view <br> together.</p>
-    <p class="left_panel_multireddulls_text">for starters, try one <br> of these:</p>
-    <a class="left_links" href="">reddullnews</a>
-    <a class="left_links" href="">reddullpets</a>
-    <a class="left_links" href="">multibeta</a>
-    <p class="left_panel_multireddulls_text">to hide these <br> samples, create a <br> multi of your own:</p>
-  </div>
-</div>
 
-<div id="center_panel">
-  <div id="featured_post">
+  <div id="right-panel">
+    <div>
+      <form>
+        <input id="search" type="text" placeholder="search reddull">
+      </form>
+    </div>
+
+    <div id="submit-post">
+      <button class="post-button" type="button">Submit a new link</button>
+      <button class="post-button" type="button">Submit a new text post</button>
+    </div>
+
+    <div class="featured-ad">
+    </div>
+    <div class="discuss-ad">
+      <a id="discuss-ad" href="">discuss this ad on reddit</a>
+    </div>
   </div>
-  
-  <div>
-    <form>
-      <input id="search" type="text" placeholder="search reddull">
-    </form>
-  </div>
-  
-  <div id="submit_post">
-    <button class="post_button" type="button">Submit a new link</button>
-    <button class="post_button" type="button">Submit a new text post</button>
-  </div>
-  
-  <div class="featured_ad">
-  </div>
-  <div class="discuss_ad">
-    <a id="discuss_ad" href="">discuss this ad on reddit</a>
-  </div>
-</div>
 
 <!-- Was not sure how to make the content in the center (posts) extend all the way to the left panel -->
