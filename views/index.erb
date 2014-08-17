@@ -48,6 +48,9 @@
   </div>
   
   <div id="center-panel">
+    <% if @flash %>
+      <div id="flash-msg"><%= @flash %></div>
+    <% end %>
     <div id="featured-post">
       This is the feaured post. It is very featured. It features its features very well.
     </div>
@@ -71,5 +74,21 @@
       <a id="discuss-ad" href="">discuss this ad on reddit</a>
     </div>
   </div>
+  
+  
+  
+  <% @category_id_to_links.each do |category_id, links| %>
+<div class="category">
+  <p><%= @category_id_to_name[category_id.to_i] %></p>
+    <% links.each do |link| %>
+      <div class="link">
+      <div><%= link[0] %>: <a href="<%= link[3] %>"><%= link[1] %></a></div>
+      <p class="description"><%= link[2] %></p>
+      </div>
+    <% end %>
+</div>
+<% end %>
 
 <!-- Was not sure how to make the content in the center (posts) extend all the way to the left panel -->
+
+<!-- <%= @silly %> -->
