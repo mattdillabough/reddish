@@ -61,80 +61,20 @@ body {
   padding-left: 15px;
 }
 
-.left-link-div {
-  clear: both;
-}
-
-.left-links {
-  clear:both;
-  float: right;
-  background-color: #FFFFFF;
-  color: #58ACFA;
-  font-family: arial, verdana, helvetica, sans-serif;
-  font-size: 14px;
-  text-decoration: none;
-  margin-top: 10px;
-  margin-left: 20px;
-  padding-left: 10px; 
-  padding-bottom: 10px;
-  padding-top: 10px;
-  padding-right: 50px;
-  border-bottom-left-radius: 5px;
-  border-top-left-radius: 5px;
-  border-left: 1px solid #000000;
-  border-bottom: 1px solid #000000;
-  border-top: 1px solid #000000;
-}
-
-#multireddulls {
-  float: right;
-  color: #424242;
-  font-size: 14px;
-  padding-right: 4px;
-  margin-bottom: 0px;
-  font-weight: bold;
-  font-family: arial, verdana, helvetica, sans-serif;
-}
-
-#left-panel-multireddulls {
-  clear:both;
-  background-color: #F3E2A9;
-  border-top: 1px solid #DBA901;
-  border-bottom: 1px solid #DBA901;
-  height: 300px;
-}
-
-.left-panel-multireddulls-text {
-  padding-left: 6px;
-  padding-right: 6px;
-  padding-top: 6px;
-  margin: 0;
-  color: #000000;
-  font-size: 14px;
-  font-family: arial, verdana, helvetica, sans-serif;
-  clear: both;
-}
-
 #panels {
   position: relative;
 }
 
-#left-panel {
-  box-shadow: -2px 0 2px #E6E6E6;  
-  border-right: 1px solid #BDBDBD;
-  box-sizing: border-box;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 200px;
-}
-
 #center-panel {
-  margin-left: 210px;
   margin-right: 330px;
   min-height: 1000px;
-  border-left: 1px solid #BDBDBD;
-  box-shadow: -2px 0 2px #E6E6E6;
+}
+
+.link {
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #000000;
+  width: 75%
 }
 
 #right-panel {

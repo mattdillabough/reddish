@@ -16,7 +16,7 @@ before do
 end
 
 get '/' do 
-  db = Reddull::database
+  db = Reddish::database
   @links = db.execute('SELECT id, title, description, url, category_id FROM links')
   categories = db.execute('SELECT id, name FROM categories')  # [ [1, 'World news'], [2, 'Local News'], ... ]
   @category_id_to_name = Hash[categories]
@@ -33,17 +33,40 @@ get '/' do
   
   user_id = session[:user_id]
   if user_id
-    @username = Reddull::username_by_id(user_id)
+    @username = Reddish::username_by_id(user_id)
   end
   erb :index
 end
-
+############################
+get '/categories/funny' do
+  db = Reddish::database
+  @links = db.execute('SELECT id, title, description, url, category_id FROM links')
+  categories = db.execute('SELECT id, name FROM categories')  # [ [1, 'World news'], [2, 'Local News'], ... ]
+  @category_id_to_name = Hash[categories]
+    
+  @category_id_to_links = {}
+  @links.each do |link|
+    link_category_id = link[4]
+    if @category_id_to_links.has_key?(link_category_id)
+      @category_id_to_links[link_category_id] << link
+    else
+      @category_id_to_links[link_category_id] = [link]
+    end
+  end
+  
+  user_id = session[:user_id]
+  if user_id
+    @username = Reddish::username_by_id(user_id)
+  end
+  erb :'/categories/funny'
+end
+####################
 get '/login' do
   erb :login
 end
 
 post '/login' do
-  db = Reddull::database
+  db = Reddish::database
   users = db.execute('SELECT id, password FROM users WHERE username = ? LIMIT 1', [params[:username]])  
   # [ [1, 'abc544334fdd001'] ]
   if users.size == 0
@@ -71,7 +94,7 @@ get '/register' do
 end
 
 post '/register' do
-  db = Reddull::database
+  db = Reddish::database
  
   # TODO: Only allow each username once
   hashed_password = BCrypt::Password.create(params[:password])
@@ -86,6 +109,8 @@ get '/links/new' do
     session[:flash] = "You must log in to view that page"
     redirect '/'
   end
+  db = Reddish::database
+  @categories = db.execute('SELECT id, name FROM categories')  
   erb :'links/new'
 end
 
@@ -94,7 +119,7 @@ post '/links/new' do
     session[:flash] = "You must log in to view that page"
     redirect '/'
   end
-  db = Reddull::database
+  db = Reddish::database
   db.execute('INSERT INTO links (title, description, url, category_id) VALUES(?, ?, ?, ?)',
     [params[:title], params[:description], params[:url], params[:category_id]])
   # The user has successfully created a newslink, redirect back to the homepage

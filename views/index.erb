@@ -4,18 +4,15 @@
 
 <div id="header">
   <div id="title">
-    Reddull
+    Reddish
   </div>
   <div id="topics">
     <ul>
-      <li><a href="">hot</a></li>
-      <li><a href="">new</a></li>
-      <li><a href="">rising</a></li>
-      <li><a href="">controversial</a></li>
-      <li><a href="">top</a></li>
-      <li><a href="">gilded</a></li>
-      <li><a href="">wiki</a></li>
-      <li><a href="">promoted</a></li>
+      <li><a href="/categories/news">news</a></li>
+      <li><a href="/categories/funny">funny</a></li>
+      <li><a href="/categories/videos">videos</a></li>
+      <li><a href="/categories/trending">trending</a></li>
+      <li><a href="/categories/programming">programing</a></li>
     </ul>
   </div>
   <div id="user-bar">
@@ -29,31 +26,24 @@
 </div>
 
 <div id="panels">
-  <div id="left-panel">
-    <div class="left-link-div">
-      <a class="left-links" href="">subscribed</a>
-    </div>
-    <div class="left-link-div">
-      <a class="left-links" href="">explore</a>
-    </div>
-    <p id="multireddulls">multireddulls</p>
-    <div id="left-panel-multireddulls">
-      <p class="left-panel-multireddulls-text">new! create sets of <br> subreddits to view <br> together.</p>
-      <p class="left-panel-multireddulls-text">for starters, try one <br> of these:</p>
-      <a class="left-links" href="">reddullnews</a>
-      <a class="left-links" href="">reddullpets</a>
-      <a class="left-links" href="">multibeta</a>
-      <p class="left-panel-multireddulls-text">to hide these <br> samples, create a <br> multi of your own:</p>
-    </div>
-  </div>
-  
   <div id="center-panel">
     <% if @flash %>
       <div id="flash-msg"><%= @flash %></div>
     <% end %>
-    <div id="featured-post">
+    <!--<div id="featured-post">
       This is the feaured post. It is very featured. It features its features very well.
+    </div>-->
+    <% @category_id_to_links.each do |category_id, links| %>
+    <div class="category">
+      <p><%= @category_id_to_name[category_id.to_i] %></p>
+        <% links.each do |link| %>
+          <div class="link">
+          <div><%= link[0] %>: <a href="<%= link[3] %>"><%= link[1] %></a></div>
+          <p class="description"><%= link[2] %></p>
+          </div>
+        <% end %>
     </div>
+    <% end %>
   </div>
 
   <div id="right-panel">
@@ -64,7 +54,9 @@
     </div>
 
     <div id="submit-post">
-      <button class="post-button" type="button">Submit a new link</button>
+      <form method="get" action="/links/new">
+        <button class="post-button" type="submit">Submit a new link</button>
+      </form>
       <button class="post-button" type="button">Submit a new text post</button>
     </div>
 
@@ -74,21 +66,3 @@
       <a id="discuss-ad" href="">discuss this ad on reddit</a>
     </div>
   </div>
-  
-  
-  
-  <% @category_id_to_links.each do |category_id, links| %>
-<div class="category">
-  <p><%= @category_id_to_name[category_id.to_i] %></p>
-    <% links.each do |link| %>
-      <div class="link">
-      <div><%= link[0] %>: <a href="<%= link[3] %>"><%= link[1] %></a></div>
-      <p class="description"><%= link[2] %></p>
-      </div>
-    <% end %>
-</div>
-<% end %>
-
-<!-- Was not sure how to make the content in the center (posts) extend all the way to the left panel -->
-
-<!-- <%= @silly %> -->
