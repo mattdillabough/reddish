@@ -6,7 +6,7 @@
 	<b>Title</b><input name="title"><br>
 	<b>Description</b><input name="description"><br>
   <b>Category</b>
-  <select name="category">
+  <select name="category_id">
     <% @categories.each do |category| %>
     <option value="<%= category[0] %>"><%= category[1] %></option>
     <% end %> 

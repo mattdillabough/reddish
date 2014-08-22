@@ -1,5 +1,5 @@
 <% content_for :stylesheets do %>
-  <link rel="stylesheet" type="text/css" href="index.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/index.css"/>
 <% end %>
 
 <div id="header">
@@ -8,11 +8,16 @@
   </div>
   <div id="topics">
     <ul>
-      <li><a href="/categories/news">news</a></li>
+      <% @categories.each do | categories | %>
+      <li><a href="/categories/<%= categories[1] %>/<%= categories[0] %>"><%= categories[1] %></a></li>
+      <% end %>
+      <!--
+      <li><a href="">news</a></li>
       <li><a href="/categories/funny">funny</a></li>
       <li><a href="/categories/videos">videos</a></li>
       <li><a href="/categories/trending">trending</a></li>
       <li><a href="/categories/programming">programing</a></li>
+      -->
     </ul>
   </div>
   <div id="user-bar">
@@ -33,17 +38,17 @@
     <!--<div id="featured-post">
       This is the feaured post. It is very featured. It features its features very well.
     </div>-->
-    <% @category_id_to_links.each do |category_id, links| %>
-    <div class="category">
-      <p><%= @category_id_to_name[category_id.to_i] %></p>
-        <% links.each do |link| %>
-          <div class="link">
-          <div><%= link[0] %>: <a href="<%= link[3] %>"><%= link[1] %></a></div>
-          <p class="description"><%= link[2] %></p>
-          </div>
-        <% end %>
-    </div>
-    <% end %>
+       <% @category_id_to_links.each do |category_id, links| %>
+      <div class="category">
+        <p><%= @category_id_to_name[category_id.to_i] %></p>
+          <% links.each do |link| %>
+            <div class="link">
+            <div><%= link[0] %>: <a href="<%= link[3] %>"><%= link[1] %></a></div>
+            <p class="description"><%= link[2] %></p>
+            </div>
+          <% end %>
+      </div>
+      <% end %>    
   </div>
 
   <div id="right-panel">

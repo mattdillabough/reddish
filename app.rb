@@ -31,19 +31,23 @@ get '/' do
     end
   end
   
+  @categories = db.execute('SELECT id, name FROM categories')
+    
   user_id = session[:user_id]
   if user_id
     @username = Reddish::username_by_id(user_id)
   end
   erb :index
 end
-############################
-get '/categories/funny' do
+
+########################
+########################
+get '/categories/:name/:id' do 
   db = Reddish::database
   @links = db.execute('SELECT id, title, description, url, category_id FROM links')
   categories = db.execute('SELECT id, name FROM categories')  # [ [1, 'World news'], [2, 'Local News'], ... ]
   @category_id_to_name = Hash[categories]
-    
+  
   @category_id_to_links = {}
   @links.each do |link|
     link_category_id = link[4]
@@ -54,13 +58,21 @@ get '/categories/funny' do
     end
   end
   
+  @categories = db.execute('SELECT id, name FROM categories')
+  
+  @category_links = db.execute('SELECT id, title, description, url, category_id FROM links WHERE category_id = ?', [params[:id]])
+  
+  @category_id = db.execute('SELECT id FROM categories')
+    
   user_id = session[:user_id]
   if user_id
     @username = Reddish::username_by_id(user_id)
   end
-  erb :'/categories/funny'
+  erb :'/categories/category'
 end
-####################
+########################
+########################
+
 get '/login' do
   erb :login
 end
