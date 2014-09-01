@@ -9,8 +9,16 @@
   <div id="topics">
     <ul>
       <li><a href="/">All</a></li>
-      <% @categories.each do | categories | %>
-      <li><a href="/categories/<%= categories[1] %>/<%= categories[0] %>"><%= categories[1] %></a></li>
+      <% @categories.each do | category | %>
+      <% if params[:id] == category[0].to_s %>
+        <% category_class = 'selected' %>
+      <% end %>
+      
+      <li>
+        <a class="<%= category_class %>" href="/categories/<%= category[1] %>/<%= category[0] %>">
+          <%= category[1] %>
+        </a>
+      </li>
       <% end %>
     </ul>
   </div>
@@ -34,19 +42,23 @@
     </div>-->
     <% if params[:name] && params[:id] %>
         <div class="links">
-          <% @category_links.each do |link|%>
-            <div class="link">
-            <div><%= link[0] %>: <a href="<%= link[3] %>"><%= link[1] %></a></div>
-            <p class="description"><%= link[2] %></p>
-            </div>
+          <% if @category_links.size > 0 %>
+            <% @category_links.each do |link|%>
+              <div class="link">
+                <div><%= link[0] %>: <a href="<%= link[3] %>"><%= link[1] %></a></div>
+                <div><span class="description"><%= link[2] %></span> <span class="category">(<%= link[5] %>)</span></div>
+              </div>
+            <% end %>
+          <% else %>
+            <p> Either this category does not exist, or there are no links in the category. </p>
           <% end %>
         </div>
       <% else %>
         <div class="category">
           <% @links.each do |link|%>
             <div class="link">
-            <div><%= link[0] %>: <a href="<%= link[3] %>"><%= link[1] %></a></div>
-            <p class="description"><%= link[2] %></p>
+              <div><%= link[0] %>: <a href="http://<%= link[3] %>"><%= link[1] %></a></div>
+              <p class="description"><%= link[2] %></p>
             </div>
           <% end %>
         </div>

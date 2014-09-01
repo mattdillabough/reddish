@@ -16,44 +16,31 @@ before do
 end
 
 get '/' do 
-  db = Reddish::database
-  @links = db.execute('SELECT id, title, description, url, category_id FROM links')
-  categories = db.execute('SELECT id, name FROM categories')  # [ [1, 'World news'], [2, 'Local News'], ... ]
-  
-  @categories = db.execute('SELECT id, name FROM categories')
-    
-  @category_links = db.execute('SELECT id, title, description, url, category_id FROM links WHERE category_id = ?', [params[:id]])
-  
-  @category_id = db.execute('SELECT id FROM categories')
-    
   user_id = session[:user_id]
   if user_id
     @username = Reddish::username_by_id(user_id)
   end
+  
+  db = Reddish::database
+  @links = db.execute('SELECT id, title, description, url, category_id FROM links') 
+  @categories = db.execute('SELECT id, name FROM categories')
   erb :index
 end
 
-########################
-########################
 get '/categories/:name/:id' do 
-  db = Reddish::database
-  @links = db.execute('SELECT id, title, description, url, category_id FROM links')
-  categories = db.execute('SELECT id, name FROM categories')  # [ [1, 'World news'], [2, 'Local News'], ... ]
-  
-  @categories = db.execute('SELECT id, name FROM categories')
-  
-  @category_links = db.execute('SELECT id, title, description, url, category_id FROM links WHERE category_id = ?', [params[:id]])
-  
-  @category_id = db.execute('SELECT id FROM categories')
-    
   user_id = session[:user_id]
   if user_id
     @username = Reddish::username_by_id(user_id)
   end
+  
+  db = Reddish::database
+  @category_links = db.execute('SELECT links.id, links.title, links.description, links.url, ' +
+                               'links.category_id, categories.name FROM ' +
+                               'links JOIN categories ON links.category_id = categories.id ' +
+                               'WHERE categories.id = ? AND categories.name = ?', [params[:id], params[:name]])
+  @categories = db.execute('SELECT id, name FROM categories')
   erb :index
 end
-########################
-########################
 
 get '/login' do
   erb :login
