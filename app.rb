@@ -1,7 +1,6 @@
 require 'bcrypt'
 require 'sinatra'
 require 'sinatra/content_for'
-require 'sqlite3'
 
 require_relative 'logic'
 
@@ -101,8 +100,8 @@ post '/links/new' do
     redirect '/'
   end
   db = Reddish::database
-  db.execute('INSERT INTO links (title, description, url, category_id) VALUES(?, ?, ?, ?)',
-    [params[:title], params[:description], params[:url], params[:category_id]])
+  db.execute('INSERT INTO links (title, description, url, category_id, user_id) VALUES(?, ?, ?, ?, ?)',
+    [params[:title], params[:description], params[:url], params[:category_id], session[:user_id]])
   # The user has successfully created a newslink, redirect back to the homepage
   redirect '/'
 end
