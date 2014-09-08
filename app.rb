@@ -21,7 +21,9 @@ get '/' do
   end
   
   db = Reddish::database
-  @links = db.execute('SELECT id, title, description, url, category_id FROM links') 
+  @links = db.execute('SELECT links.id, links.title, links.description, links.url,' +
+                      'links.category_id, categories.name FROM ' +
+                      'links JOIN categories ON links.category_id = categories.id') 
   @categories = db.execute('SELECT id, name FROM categories')
   erb :index
 end

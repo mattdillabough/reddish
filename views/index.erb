@@ -44,10 +44,8 @@
         <div class="links">
           <% if @category_links.size > 0 %>
             <% @category_links.each do |link|%>
-              <div class="link">
-                <div><%= link[0] %>: <a href="<%= link[3] %>"><%= link[1] %></a></div>
-                <div><span class="description"><%= link[2] %></span> <span class="category">(<%= link[5] %>)</span></div>
-              </div>
+              <% @link = link %>
+              <%= erb :_link %>
             <% end %>
           <% else %>
             <p> Either this category does not exist, or there are no links in the category. </p>
@@ -56,10 +54,8 @@
       <% else %>
         <div class="category">
           <% @links.each do |link|%>
-            <div class="link">
-              <div><%= link[0] %>: <a href="http://<%= link[3] %>"><%= link[1] %></a></div>
-              <p class="description"><%= link[2] %></p>
-            </div>
+            <% @link = link %>
+            <%= erb :_link %>
           <% end %>
         </div>
       <% end %>
