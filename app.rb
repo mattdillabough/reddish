@@ -21,9 +21,19 @@ get '/' do
   end
   
   db = Reddish::database
-  @links = db.execute('SELECT links.id, links.title, links.description, links.url,' +
-                      'links.category_id, categories.name FROM ' +
-                      'links JOIN categories ON links.category_id = categories.id') 
+  db_links = db.execute('SELECT links.id, links.title, links.description, links.url,' +
+                        'links.category_id, links.user_id, categories.name, ' +
+                        'users.username, links.created_at ' + 
+                        'FROM links JOIN categories ON links.category_id = categories.id ' +
+                        'JOIN users ON users.id = links.user_id ' +
+                        'ORDER BY links.created_at DESC')
+  db_links.each do |link|
+    ago = Reddish::ago(link[8])
+    link << ago
+  end
+  
+  @links = db_links.map {|db_link| Reddish::create_link(*db_link)}
+  
   @categories = db.execute('SELECT id, name FROM categories')
   erb :index
 end
@@ -35,10 +45,20 @@ get '/categories/:name/:id' do
   end
   
   db = Reddish::database
-  @category_links = db.execute('SELECT links.id, links.title, links.description, links.url, ' +
-                               'links.category_id, categories.name FROM ' +
-                               'links JOIN categories ON links.category_id = categories.id ' +
-                               'WHERE categories.id = ? AND categories.name = ?', [params[:id], params[:name]])
+  db_links = db.execute('SELECT links.id, links.title, links.description, links.url,' +
+                               'links.category_id, links.user_id, categories.name, ' +
+                               'users.username, links.created_at ' +
+                               'FROM links JOIN categories ON links.category_id = categories.id ' + 
+                               'JOIN users ON users.id = links.user_id ' +
+                               'WHERE categories.id = ? AND categories.name = ?' +
+                               'ORDER BY links.created_at DESC', [params[:id], params[:name]])
+  db_links.each do |link|
+    ago = Reddish::ago(link[8])
+    link << ago
+  end
+  
+  @category_links = db_links.map {|db_link| Reddish::create_link(*db_link)}
+  
   @categories = db.execute('SELECT id, name FROM categories')
   erb :index
 end
@@ -102,8 +122,38 @@ post '/links/new' do
     redirect '/'
   end
   db = Reddish::database
-  db.execute('INSERT INTO links (title, description, url, category_id, user_id) VALUES(?, ?, ?, ?, ?)',
-    [params[:title], params[:description], params[:url], params[:category_id], session[:user_id]])
+  db.execute('INSERT INTO links (title, description, url, category_id, user_id, created_at) VALUES(?, ?, ?, ?, ?, strftime("%s", "now"))',
+    [params[:title], params[:description], params[:url], params[:category_id], session[:user_id] ])
   # The user has successfully created a newslink, redirect back to the homepage
   redirect '/'
+end
+
+get '/user/:username' do
+  user_id = session[:user_id]
+  if user_id
+    @username = Reddish::username_by_id(user_id)
+  end
+  
+  # SELECT links.id, links.title, links.description, links.url,' +
+  #                      'links.category_id, links.user_id, categories.name, ' +
+  #                      'users.username, links.created_at 
+  
+  db = Reddish::database
+  db_links = db.execute('SELECT links.id, links.title, links.description, links.url, links.category_id, ' +
+                        'links.user_id, categories.name, users.username, links.created_at ' + 
+                        'FROM links JOIN users ON users.id = links.user_id ' +
+                        'JOIN categories ON links.category_id = categories.id ' +
+                        'WHERE users.username = ? ' + 
+                        'ORDER BY links.created_at DESC', [params[:username]])
+
+  db_links.each do |link|
+    ago = Reddish::ago(link[8])
+    link << ago
+  end
+  
+  @links = db_links.map {|db_link| Reddish::create_link(*db_link)}
+  
+  @categories = db.execute('SELECT id, name FROM categories')
+  
+  erb :user
 end

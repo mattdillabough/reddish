@@ -1,4 +1,18 @@
 <div class="link">
-  <div><%= @link[0] %>: <a href="<%= @link[3] %>"><%= @link[1] %></a></div>
-  <div><span class="description"><%= @link[2] %></span> <span class="category">(<%= @link[5] %>)</span></div>
+  <div class="link-number"><%= @index + 1 %></div>
+  <div class="link-votes">
+    <div class="link-upvote" data-link-id="<%= @link["id"] %>">△</div>
+    <div class="link-downvote">▽</div>
+  </div>
+  <div class="link-info">
+    <div><a class="link-title" href="<%= @link["url"] %>"><%= @link["title"] %></a></div>
+    <div class="details">Submitted <%= @link["ago"] %> by
+      <a class="link-title" href="/user/<%= @link["username"] %>"><%= @link["username"] %></a>
+      to  <a class="link-title"
+             href="/categories/<%= @link["category_name"]%>/<%= @link["category_id"] %>">
+             <%= @link["category_name"] %>
+          </a>
+    </div>
+      <!-- <div><span class="description"><%= @link[2] %></span> <span class="category">(<%= @link[5] %>)</span></div> -->
+  </div>
 </div>

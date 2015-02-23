@@ -2,6 +2,8 @@
   <link rel="stylesheet" type="text/css" href="/css/index.css"/>
 <% end %>
 
+
+<!------ put header and user bar into layout page -------->
 <div id="header">
   <div id="title">
     Reddish
@@ -24,7 +26,7 @@
   </div>
   <div id="user-bar">
     <% if @username %>
-      <a href="/user/<%= @username %>"><%= @username %></a> |
+      <a href=""><%= @username %></a> |
     <% else %>
       <a href="/login">login</a> | <a href="/register">register</a> |
     <% end %>
@@ -40,19 +42,7 @@
     <!--<div id="featured-post">
       This is the feaured post. It is very featured. It features its features very well.
     </div>-->
-    <% if params[:name] && params[:id] %>
-        <div class="links">
-          <% if @category_links.size > 0 %>
-            <% @category_links.each_with_index do |link, index|%>
-              <% @index = index %>
-              <% @link = link %>
-              <%= erb :_link %>
-            <% end %>
-          <% else %>
-            <p> Either this category does not exist, or there are no links in the category. </p>
-          <% end %>
-        </div>
-      <% else %>
+    <% if params[:username] %>
         <div class="links">
           <% @links.each_with_index do |link, index|%>
             <% @index = index %>
